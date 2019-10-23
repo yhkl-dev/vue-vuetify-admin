@@ -3,8 +3,7 @@
     <navigator-bar :drawer="drawer" />
     <app-bar
       :color="color"
-      @handleShowNaviBar="handleShowNaviBar"
-      :drawer="drawer" >
+      @handleShowNaviBar="handleShowNaviBar">
     </app-bar>
     <v-content>
       <!-- Provides the application the proper gutter -->
@@ -17,11 +16,8 @@
 </template>
 
 <script>
-// eslint-disable-next-line import/no-duplicates
 import Footer from './components/Footer'
-// eslint-disable-next-line import/no-duplicates
 import NavigatorBar from './components/NavigatorBar'
-// eslint-disable-next-line import/no-duplicates
 import AppBar from './components/AppBar'
 import AppMain from './components/AppMain'
 
@@ -32,13 +28,14 @@ export default {
   },
   data () {
     return {
-      drawer: true,
+      drawer: null,
       color: 'white'
     }
   },
   methods: {
-    handleShowNaviBar (data) {
-      this.drawer = data
+    handleShowNaviBar (val) {
+      this.drawer = val
+      console.log('val', val)
     }
   }
 }

@@ -1,29 +1,38 @@
 <template>
   <v-app-bar
     app
+    dense
     :color="color"
     >
-    <v-app-bar-nav-icon @click.stop="handleClick(drawer)"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon
+      @click.stop="toggleSideBar"></v-app-bar-nav-icon>
     <v-toolbar-title>Application</v-toolbar-title>
   </v-app-bar>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'AppBar',
   props: {
     color: {
       type: String,
       default: 'indigo'
-    },
-    drawer: {
-      type: Boolean
     }
   },
+  data () {
+    return {
+      myDrawer: this.drawer
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'sidebar'
+    ])
+  },
   methods: {
-    handleClick (drawer) {
-      // drawer = !drawer;
-      this.$emit('handleShowNaviBar', !drawer)
+    toggleSideBar () {
+      this.$store.dispatch('drawer/toggleSideBar')
     }
   }
 }

@@ -13,8 +13,9 @@
           <v-card-text>
             <v-form v-model="valid">
               <v-text-field
-                label="Login"
+                label="请输入用户名"
                 name="login"
+                :rules="nameRules"
                 v-model="username"
                 required
                 prepend-icon="person"
@@ -22,21 +23,28 @@
               </v-text-field>
               <v-text-field
                 id="password"
-                label="Password"
+                label="请输入密码"
                 v-model="password"
+                :rules="passwordRules"
                 name="password"
                 required
                 prepend-icon="lock"
+                @keyup.enter.native="loginClick"
                 type="password">
               </v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="loginClick">Login</v-btn>
+            <v-btn
+              @click="loginClick"
+              :loading="loading"
+              color="primary"
+              class="ma-2 white--text"
+              >Login</v-btn>
           </v-card-actions>
         </v-card>
-    </v-col>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -47,44 +55,35 @@ import { isvalidUsername } from '@/utils/validate'
 export default {
   name: 'Login',
   data () {
-    const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
-      } else {
-        callback()
-      }
-    }
-    const validatePass = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
-      } else {
-        callback()
-      }
-    }
     return {
       valid: false,
-      username: '',
-      password: '',
+      loading: false,
       loginForm: {
         username: '',
         password: ''
       },
-      loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
-      },
-      loading: false,
-      pwdType: 'password'
+      username: '',
+      nameRules: [
+        value => !!value || '用户名不能为空',
+        value => isvalidUsername(value) || '请输入正确的用户名'
+      ],
+      password: '',
+      passwordRules: [
+        value => value.length >= 5 || '密码不能小于5位'
+      ]
     }
   },
   methods: {
     loginClick () {
+      this.loading = true
       this.loginForm.username = this.username
       this.loginForm.password = this.password
       this.$store.dispatch('Login', this.loginForm).then(() => {
+        this.loading = false
         this.$router.push({ path: '/' })
       }).catch(() => {
-        //
+        console.log('s')
+        this.loading = false
       })
     }
   }
@@ -92,5 +91,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

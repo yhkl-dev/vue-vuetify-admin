@@ -5,7 +5,6 @@ const user = {
   state: {
     token: getToken(),
     name: '',
-    avatar: '',
     username: '',
     menus: []
   },
@@ -31,8 +30,9 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
-          commit('SET_TOKEN', response.token)
-          setToken(response.token)
+          commit('SET_TOKEN', response.data.token)
+          console.log('SET_TOKEN', response.data.token)
+          setToken(response.data.token)
           resolve()
         }).catch(error => {
           reject(error)
@@ -44,18 +44,18 @@ const user = {
     GetInfo ({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(response => {
-          commit('SET_MENUS', response.menus)
-          console.log('menus', response.menus)
-          commit('SET_NAME', response.name)
-          commit('SET_USERNAME', response.username)
-          resolve(response)
+          commit('SET_MENUS', response.data.menus)
+          console.log('menus', response.data.menus)
+          commit('SET_NAME', response.data.name)
+          commit('SET_USERNAME', response.data.username)
+          resolve(response.data)
         }).catch(error => {
           reject(error)
         })
       })
     },
     // 登出
-    LogOut ({ commit, state }) {
+    LogOut ({ commit }) {
       commit('SET_TOKEN', '')
       removeToken()
     },

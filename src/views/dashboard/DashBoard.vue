@@ -5,10 +5,13 @@
       :items="desserts"
       :items-per-page="5"
     ></v-data-table>
+    <v-btn @click="handleLogout">Logout</v-btn>
+    <v-btn @click="getCookies">get</v-btn>
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
   name: 'DashBoard',
   data () {
@@ -108,6 +111,16 @@ export default {
           iron: '6%'
         }
       ]
+    }
+  },
+  methods: {
+    handleLogout () {
+      this.$store.dispatch('LogOut').then(() => {
+        location.reload()
+      })
+    },
+    getCookies () {
+      console.log(Cookies)
     }
   }
 }
