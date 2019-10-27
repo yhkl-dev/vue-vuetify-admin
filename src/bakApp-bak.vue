@@ -1,10 +1,11 @@
 <template>
-  <v-app class="grey lighten-4">
+  <v-app id="inspire">
     <router-view></router-view>
   </v-app>
 </template>
 
 <script>
+
 export default {
   name: 'App'
 }

@@ -1,52 +1,59 @@
 <template>
-  <v-container class="fill-height" fluid >
-    <v-row align="center" justify="center" >
-      <v-col cols="12" sm="8" md="4">
-        <v-card class="elevation-12">
-          <v-toolbar
-            color="primary"
-            dark
-            flat>
-            <v-toolbar-title>Welcome</v-toolbar-title>
-            <v-spacer></v-spacer>
-          </v-toolbar>
-          <v-card-text>
-            <v-form v-model="valid">
-              <v-text-field
-                label="请输入用户名"
-                name="login"
-                :rules="nameRules"
-                v-model="username"
-                required
-                prepend-icon="person"
-                type="text">
-              </v-text-field>
-              <v-text-field
-                id="password"
-                label="请输入密码"
-                v-model="password"
-                :rules="passwordRules"
-                name="password"
-                required
-                prepend-icon="lock"
-                @keyup.enter.native="loginClick"
-                type="password">
-              </v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              @click="loginClick"
-              :loading="loading"
-              color="primary"
-              class="ma-2 white--text"
-              >Login</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <v-parallax
+      height="100%"
+      src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
+      <v-container class="fill-height" fluid >
+        <v-row align="center" justify="center" >
+          <v-col cols="12" sm="8" md="4">
+            <v-card class="mx-auto">
+              <v-toolbar
+                color="primary"
+                dark
+                flat>
+                <v-toolbar-title>Welcome</v-toolbar-title>
+                <v-spacer></v-spacer>
+              </v-toolbar>
+              <v-card-text>
+                <v-form v-model="valid">
+                  <v-text-field
+                    label="请输入用户名"
+                    name="login"
+                    :rules="nameRules"
+                    v-model="username"
+                    required
+                    prepend-icon="person"
+                    type="text">
+                  </v-text-field>
+                  <v-text-field
+                    id="password"
+                    label="请输入密码"
+                    v-model="password"
+                    :rules="passwordRules"
+                    name="password"
+                    required
+                    prepend-icon="lock"
+                    @keyup.enter.native="loginClick"
+                    type="password">
+                  </v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  @click="loginClick"
+                  :loading="loading"
+                  color="primary"
+                  class="ma-2 white--text"
+                >Login</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-parallax>
+  </div>
+
 </template>
 
 <script>
@@ -91,4 +98,12 @@ export default {
 </script>
 
 <style scoped>
+  .v-parallax {
+    position:fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    min-width: 1000px;
+  }
 </style>

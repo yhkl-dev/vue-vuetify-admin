@@ -1,13 +1,14 @@
 <template>
   <v-app>
+    <notification></notification>
     <navigator-bar :drawer="drawer" />
     <app-bar
       :color="color"
       @handleShowNaviBar="handleShowNaviBar">
     </app-bar>
-    <v-content>
+    <v-content class="mx-4 mb-4">
       <!-- Provides the application the proper gutter -->
-      <v-container  fluid>
+      <v-container fluid>
         <router-view></router-view>
       </v-container>
     </v-content>
@@ -20,11 +21,12 @@ import Footer from './components/Footer'
 import NavigatorBar from './components/NavigatorBar'
 import AppBar from './components/AppBar'
 import AppMain from './components/AppMain'
+import Notification from './components/GlobalNotify'
 
 export default {
   name: 'Layout',
   components: {
-    Footer, NavigatorBar, AppBar, AppMain
+    Footer, NavigatorBar, AppBar, AppMain, Notification
   },
   data () {
     return {
